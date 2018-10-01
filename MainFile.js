@@ -4,15 +4,15 @@ var firstInput = [];
 var secondInput = [];
 
 stdin.addListener("data", function (a) {
-    
+
+
     console.log("Enter the number of lines you'd like to encrypt:\n");
-    firstInput.push(a.toString());
-
+    firstInput.pop();
+    firstInput.push(parseInt(a));
     console.log("First: " + firstInput);
-
-
-
-1
+    for (i = 0; i <= firstInput; i++) {
+        console.log('test');
+    }
 
     console.log("Enter how much you'd like to shift the letters by:\n");
     secondInput.push(a.toString());
