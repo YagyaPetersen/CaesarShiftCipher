@@ -28,6 +28,9 @@ initialize(screens.first_input);
 console.log("\nEnter the number of lines you'd like to encrypt:");
 stdin.addListener("data", function (a) {
     if (getCurrentScreen() == screens.first_input) {
+        if (isNaN(a)) {
+            setCurrentScreen(screens.first_input);
+        }
         var first = function (input) {
             firstInput.pop();
             firstInput.push(parseInt(input));
@@ -39,6 +42,9 @@ stdin.addListener("data", function (a) {
     }
 
     else if (getCurrentScreen() == screens.second_input) {
+        if (isNaN(a)) {
+            setCurrentScreen(screens.second_input);
+        }
         var second = function (input) {
             secondInput.pop();
             secondInput.push(input);
@@ -61,12 +67,40 @@ stdin.addListener("data", function (a) {
         console.log(sentences.toString());
 
         if (i == sentences.length) {
-            setCurrentScreen(screens.test);
+            setCurrentScreen(screens.changer);
             console.log("Press Enter to Encrypt message");
         }
     }
     else if (getCurrentScreen() == screens.changer) {
-
+        if (a == false) {
+            
+            function encrypt(sentences, secondInput) {
+var newSentences = '';
+                for (var i = 0; i < sentences.length; i++) {
+                    var char = sentences[i],
+                        isUpper = char === char.toUpperCase() ? true : false;
+                    char = char.toLowerCase();
+                    if (letters.indexOf(char) > -1) {
+                        var encrypted = letters.indexOf(char) + secondInput;
+                        if (encrypted < letters.length) {
+                            isUpper ? newSentences += letters[encrypted].toUpperCase() : newSentences += letters[encrypted];
+                        } else {
+                            var shifted = -(letters.length - newSentences);
+                            isUpper ? newSentences += letters[shifted].toUpperCase() : newSentences += letters[shiftedIndex];
+                        }
+                    } else {
+                        newSentences += char;
+                    }
+                }
+                return newSentences;
+            }
+            sentences = encrypt(sentences, secondInput);
+            console.log();
+        }
+        else {
+            console.log("You can only press enter");
+            setCurrentScreen(screens.changer);
+        }
     }
 });
 
