@@ -11,17 +11,20 @@ function getCurrentScreen() {
 var screens = {
     first_input: 1,
     second_input: 2,
-    questions: 3
+    questions: 3,
+    changer: 4
 }
-
-
 
 var stdin = process.openStdin();
 var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var firstInput = [];
 var secondInput = [];
+var sentences = [];
 
 initialize(screens.first_input);
+
+
+
 console.log("\nEnter the number of lines you'd like to encrypt:");
 stdin.addListener("data", function (a) {
     if (getCurrentScreen() == screens.first_input) {
@@ -45,10 +48,24 @@ stdin.addListener("data", function (a) {
         }
         second(parseInt(a));
         setCurrentScreen(screens.questions);
-        console.log("\nEnter ["+ firstInput +"] sentences you would like to encrypt:")
+        console.log("\nEnter [" + firstInput + "] sentences you would like to encrypt:")
     }
 
     else if (getCurrentScreen() == screens.questions) {
+        for (i = 0; i < firstInput; i++) {
+            var encryption = a.toString();
+            console.log('\n' + sentences.toString());
+            console.log(encryption + "1");
+        }
+        sentences.push(encryption);
+        console.log(sentences.toString());
+
+        if (i == sentences.length) {
+            setCurrentScreen(screens.test);
+            console.log("Press Enter to Encrypt message");
+        }
+    }
+    else if (getCurrentScreen() == screens.changer) {
 
     }
 });
