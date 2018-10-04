@@ -16,7 +16,7 @@ var screens = {
 }
 
 var stdin = process.openStdin();
-var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
 var firstInput = [];
 var secondInput = [];
 var sentences = [];
@@ -49,8 +49,8 @@ stdin.addListener("data", function (a) {
             secondInput.pop();
             secondInput.push(input);
             console.log("Second: " + secondInput);
-            letters = letters.concat(letters.splice(0, parseInt(secondInput)));
-            console.log(letters.toString());
+            //letters = letters.concat(letters.splice(0, parseInt(secondInput)));
+            //console.log(letters.toString());
         }
         second(parseInt(a));
         setCurrentScreen(screens.questions);
@@ -60,42 +60,43 @@ stdin.addListener("data", function (a) {
     else if (getCurrentScreen() == screens.questions) {
         for (i = 0; i < firstInput; i++) {
             var encryption = a.toString();
-            console.log('\n' + sentences.toString());
-            console.log(encryption + "1");
         }
         sentences.push(encryption);
-        console.log(sentences.toString());
 
         if (i == sentences.length) {
+
             setCurrentScreen(screens.changer);
             console.log("Press Enter to Encrypt message");
         }
     }
     else if (getCurrentScreen() == screens.changer) {
         if (a == false) {
-            
-            function encrypt(sentences, secondInput) {
-var newSentences = '';
-                for (var i = 0; i < sentences.length; i++) {
-                    var char = sentences[i],
+            function encrypt(sentence, secondInput) {
+                var letters = "abcdefghijklmopqrstuvwxyz";
+                var newSentences = "";
+                for (var i = 0; i < sentence.length; i++) {
+                    var char = sentence[i]
                         isUpper = char === char.toUpperCase() ? true : false;
                     char = char.toLowerCase();
+
                     if (letters.indexOf(char) > -1) {
-                        var encrypted = letters.indexOf(char) + secondInput;
+                        var encrypted = letters.indexOf(char) + parseInt(secondInput);
                         if (encrypted < letters.length) {
-                            isUpper ? newSentences += letters[encrypted].toUpperCase() : newSentences += letters[encrypted];
+                            isUpper ? newSentences + letters[encrypted].toUpperCase() : newSentences + letters[encrypted];
                         } else {
                             var shifted = -(letters.length - newSentences);
-                            isUpper ? newSentences += letters[shifted].toUpperCase() : newSentences += letters[shiftedIndex];
+                            isUpper ? newSentences + letters[shifted].toUpperCase() : newSentences + letters[shifted];
                         }
-                    } else {
+                    }
+                    else {
                         newSentences += char;
                     }
                 }
                 return newSentences;
             }
-            sentences = encrypt(sentences, secondInput);
-            console.log();
+
+            sentences = encrypt(sentences.toString(), secondInput);
+            console.log(sentences);
         }
         else {
             console.log("You can only press enter");
