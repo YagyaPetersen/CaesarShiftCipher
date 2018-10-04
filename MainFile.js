@@ -23,9 +23,9 @@ var sentences = [];
 
 initialize(screens.first_input);
 
-
-
-console.log("\nEnter the number of lines you'd like to encrypt:");
+             
+console.log("______________________________________\n\x1b[31mWELCOME TO THE CAESER SHIFT CIPHER APP\x1b[0m\n\x1b[0m______________________________________");
+console.log("\n\x1b[31mEnter the number of lines you'd like to encrypt:\x1b[0m");
 stdin.addListener("data", function (a) {
     if (getCurrentScreen() == screens.first_input) {
         if (isNaN(a)) {
@@ -34,11 +34,11 @@ stdin.addListener("data", function (a) {
         var first = function (input) {
             firstInput.pop();
             firstInput.push(parseInt(input));
-            console.log("First: " + firstInput);
+            console.log("\nFirst: " + firstInput);
         }
         first(parseInt(a));
         setCurrentScreen(screens.second_input);
-        console.log("\nEnter how much you'd like to shift the letters by:");
+        console.log("\n\x1b[31mEnter how much you'd like to shift the letters by:\x1b[0m");
     }
 
     else if (getCurrentScreen() == screens.second_input) {
@@ -48,13 +48,11 @@ stdin.addListener("data", function (a) {
         var second = function (input) {
             secondInput.pop();
             secondInput.push(input);
-            console.log("Second: " + secondInput);
-            //letters = letters.concat(letters.splice(0, parseInt(secondInput)));
-            //console.log(letters.toString());
+            console.log("\nSecond: " + secondInput);
         }
         second(parseInt(a));
         setCurrentScreen(screens.questions);
-        console.log("\nEnter [" + firstInput + "] sentences you would like to encrypt:")
+        console.log("\x1b[31m\nEnter [\x1b[0m" + firstInput + "\x1b[31m] sentences you would like to encrypt: \x1b[0m")
     }
 
     else if (getCurrentScreen() == screens.questions) {
@@ -66,42 +64,47 @@ stdin.addListener("data", function (a) {
         if (i == sentences.length) {
 
             setCurrentScreen(screens.changer);
-            console.log("Press Enter to Encrypt message");
+            console.log("\n\x1b[31mPress Enter to Encrypt message\x1b[0m");
         }
     }
     else if (getCurrentScreen() == screens.changer) {
         if (a == false) {
             function encrypt(sentence, secondInput) {
+
                 var letters = "abcdefghijklmopqrstuvwxyz";
                 var newSentences = "";
+                
                 for (var i = 0; i < sentence.length; i++) {
-                    var char = sentence[i]
-                        isUpper = char === char.toUpperCase() ? true : false;
-                    char = char.toLowerCase();
+                    var character = sentence[i]
+                    isUpper = character === character.toUpperCase() ? true : false;
+                    character = character.toLowerCase();
 
-                    if (letters.indexOf(char) > -1) {
-                        var encrypted = letters.indexOf(char) + parseInt(secondInput);
+                    if (letters.indexOf(character) > -1) {
+                        var encrypted = letters.indexOf(character) + parseInt(secondInput);
                         if (encrypted < letters.length) {
-                            isUpper ? newSentences + letters[encrypted].toUpperCase() : newSentences + letters[encrypted];
+                            isUpper ? newSentences += letters[encrypted].toUpperCase() : newSentences += letters[encrypted];
                         } else {
                             var shifted = -(letters.length - newSentences);
-                            isUpper ? newSentences + letters[shifted].toUpperCase() : newSentences + letters[shifted];
+                            isUpper ? newSentences += letters[shifted].toUpperCase() : newSentences += letters[shifted];
                         }
                     }
+
                     else {
-                        newSentences += char;
+                        newSentences += character;
                     }
                 }
                 return newSentences;
             }
-
             sentences = encrypt(sentences.toString(), secondInput);
-            console.log(sentences);
+            console.log("\n\x1b[31mHere is your encrypted message: \n_______________________\x1b[0m");
+            console.log(sentences.toString());
+            console.log("\x1b[31m_______________________\nCaesar will be proud of you !!\x1b[0m");
         }
         else {
             console.log("You can only press enter");
             setCurrentScreen(screens.changer);
-        }
+        }process.exit(0);
     }
+    
 });
 
