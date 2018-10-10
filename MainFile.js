@@ -1,5 +1,4 @@
 var readlineSync = require('readline-sync');
-
 var sentences = [];
 
 console.log("______________________________________\n\x1b[31mWELCOME TO THE CAESER SHIFT CIPHER APP\x1b[0m\n\x1b[0m______________________________________");
@@ -19,6 +18,7 @@ var secondInput = readlineSync.question("\n\x1b[31mEnter how much you'd like to 
 if (isNaN(secondInput) || secondInput == false) {
     readlineSync.question("\n\x1b[31mEnter how much you'd like to shift the letters by:\x1b[0m\n");
 }
+
 else {
     var second = function (input) {
         console.log("\nSecond: " + input);
@@ -49,11 +49,14 @@ if (sentences.length == firstInput) {
                     var encrypted = letters.indexOf(char) + secondInput;
                     if (encrypted < letters.length) {
                         isUpper ? newSentences += letters[encrypted].toUpperCase() : newSentences += letters[encrypted];
-                    } else {
+                    }
+
+                    else {
                         var shifted = -(letters.length - encrypted);
                         isUpper ? newSentences += letters[shifted].toUpperCase() : newSentences += letters[shifted];
                     }
                 }
+
                 else {
                     newSentences += char;
                 }
@@ -65,9 +68,11 @@ if (sentences.length == firstInput) {
         console.log(sentences.replace(",", "\n"));
         console.log("\x1b[31m_______________________\n\nCaesar will be proud of you !!\x1b[0m\n");
     }
+
     else {
         console.log("You can only press enter");
-    } process.exit(0);
+    }
+    process.exit(0);
 
 }
 
