@@ -27,7 +27,7 @@ else {
 }
 
 for (i = 0; i < parseInt(firstInput); i++) {
-var thirdInput = readlineSync.question("\x1b[31m\nEnter [\x1b[0m" + firstInput + "\x1b[31m] sentences you would like to encrypt: \x1b[0m\n");
+    var thirdInput = readlineSync.question("\x1b[31m\nEnter [\x1b[0m" + firstInput + "\x1b[31m] sentences you would like to encrypt: \x1b[0m\n");
     sentences.push(thirdInput);
 }
 
